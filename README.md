@@ -21,7 +21,10 @@ A straightforward guide to installing, configuring, and managing GlusterFS.
    - [Start Rebalance](#start-rebalance)  
    - [Check Rebalance Status](#check-rebalance-status)  
 6. [Useful Links & References](#useful-links--references)
-
+7. [Backup & Restore](#backup--restore)  
+   - [Backup](#backup)  
+   - [Restore](#restore)
+     
 ---
 
 ## Prerequisites
@@ -39,3 +42,21 @@ A straightforward guide to installing, configuring, and managing GlusterFS.
 ```bash
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
+```
+
+## Backup & Restore
+
+### Backup
+
+### Restore
+```bash
+# migrate
+gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 start
+# check status
+gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 status
+# remove brick 
+gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 commit
+# rebalance the glusterfs
+gluster volume rebalance gv0 start
+# check rebalance status
+gluster volume rebalance gv0 status
