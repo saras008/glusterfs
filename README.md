@@ -75,28 +75,29 @@ gluster volume stop gv0
 
 tar -czvf /backup/gv0-brick1.tar.gz /gluster/brick1/
 ```
-### Restore
-# Restore Full Backup File GlusterFS
+# Restore
+### Restore Full Backup File GlusterFS
 ```
 tar -xzvf /backup/gv0-brick1.tar.gz -C /gluster/brick1/
 
 gluster volume start gv0
 ```
-# Restore from Rsync GlusterFS
+### Restore from Rsync GlusterFS
 ```
 rsync -avz backup-server:/backup/gluster/ /gluster/brick1/
 
 ls -lah /gluster/brick1/
 ```
-# Restore from Geo Location GlusterFS
+### Restore from Geo Location GlusterFS
 ```
 gluster volume geo-replication drc-server:drc-gv0 promote
 
 ```
-### Resize GlusterFS Volume
-## Reduce Volume
+# Resize GlusterFS Volume
+### Reduce Volume
 
-```# Reduce Disk Volume GlusterFS
+```
+# Reduce Disk Volume GlusterFS
 gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 start
 # check status
 gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 status
