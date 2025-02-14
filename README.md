@@ -82,8 +82,8 @@ tar -xzvf /backup/gv0-brick1.tar.gz -C /gluster/brick1/
 
 gluster volume start gv0
 ```
-## Resize GlusterFS Volume
-### Reduce Volume
+### Resize GlusterFS Volume
+## Reduce Volume
 
 ```# Reduce Disk Volume GlusterFS
 gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 start
