@@ -48,9 +48,44 @@ sudo apt-get install -y ca-certificates curl
 
 ### Backup
 
+Backup using Rsync
+
+```
+# rsync the brick folder to backup server or storage server
+rsync -avz /gluster/brick1 backup-server:/backup/gluster/
+
+# set crontab to automate the backup
+0 0 * * * rsync -avz /gluster/brick1 backup-server:/backup/gluster/
+```
+
+Geo Replication Backup (Disaster Recovery GlusterFS)
+
+```
+#Create volume to drc glusterfs cluster
+gluster volume geo-replication gv0 drc-server::backup-gv0 create push
+#Start the volume
+gluster volume geo-replication gv0 drc-server::backup-gv0 start
+#Check gluster volume status
+gluster volume geo-replication gv0 drc-server::drc-gv0 status
+
+```
+Full Backup GlusterFS
+```
+gluster volume stop gv0
+
+tar -czvf /backup/gv0-brick1.tar.gz /gluster/brick1/
+```
 ### Restore
-```bash
-# migrate
+```
+# Restore Full Backup File GlusterFS
+tar -xzvf /backup/gv0-brick1.tar.gz -C /gluster/brick1/
+
+gluster volume start gv0
+```
+## Resize GlusterFS Volume
+### Reduce Volume
+
+```# Reduce Disk Volume GlusterFS
 gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 start
 # check status
 gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 status
@@ -60,3 +95,4 @@ gluster volume remove-brick gv0 172.16.129.132:/gluster/brick1 commit
 gluster volume rebalance gv0 start
 # check rebalance status
 gluster volume rebalance gv0 status
+```
